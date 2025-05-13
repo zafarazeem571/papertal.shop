@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us - PaperTales</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="contactstyles.css">
+</head>
+
+<body>
+<div class="announcement-wrapper">
+    <div class="announcement-bar">
+  Unlock Joy with Orders of Minimum Rs 300 and Above! Free Shipping Above Rs 3000/-
+</div>
+
+<header>
+  <h1><a href="index.html" class="logo-link">PaperTales</a></h1>
+</header>
+
+<section>
+  <h2>Contact Us</h2>
+  <form id="contactForm">
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" name="name" required />
+
+    <label for="email">Your Email:</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="message">Your Message:</label>
+    <textarea id="message" name="message" rows="4" required></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
+  <p id="contactMessage"></p>
+</section>
+<section>
+    <h2>Get in touch</h2>
+    <p>📧 Email: <a href="mailto:info@papertale.shop">info@papertale.shop</a></p>
+    <p>📞 Phone: <a href="tel:+923225140878">+92 322 5140878</a></p>
+    <p>💬 WhatsApp: <a href="https://wa.me/923225140878" target="_blank">+92 322 5140878</a></p>
+    <p>📍 Location: Lahore, Pakistan</p>
+  </section>
+<footer>
+  Copyright &copy; 2025 PaperTales. All rights reserved.Powered by Workwithazeem.
+</footer>
+
+<script>
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const name = this.name.value.trim();
+    const email = this.email.value.trim();
+    const message = this.message.value.trim();
+
+    if (!name || !email || !message) {
+      alert("Please fill out all fields.");
+      return;
+    }
+
+    // Placeholder: Handle message sending logic
+    this.reset();
+    document.getElementById("contactMessage").textContent = "Thank you! We'll get back to you soon.";
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    document.getElementById("cart-count").textContent = cart.length;
+  });
+</script>
+
+</body>
+</html>

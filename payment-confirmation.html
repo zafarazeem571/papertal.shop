@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Upload Payment Proof - Paper Tales</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Paymentstyles.css">
+  
+</head>
+<body>
+
+<header>
+  <h1><a href="index.html" class="logo-link">PaperTales</a></h1>
+</header>
+
+<div class="container">
+  <h2>Upload Payment Proof</h2>
+  <p style="text-align:center;">Please upload your JazzCash or Easypaisa payment receipt.</p>
+
+  <form id="proofForm" enctype="multipart/form-data">
+    <input type="file" name="paymentProof" accept="image/*,.pdf" required />
+    <div id="preview"></div>
+    <button type="submit">Upload Proof</button>
+  </form>
+
+  <p id="uploadMessage"></p>
+</div>
+
+<script>
+  const form = document.getElementById("proofForm");
+  const fileInput = form.querySelector("input[type='file']");
+  const preview = document.getElementById("preview");
+
+  fileInput.addEventListener("change", function () {
+    const file = fileInput.files[0];
+    preview.innerHTML = "";
+
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      document.getElementById("uploadMessage").textContent = "⚠️ File size must be under 5MB.";
+      return;
+    }
+
+    const fileURL = URL.createObjectURL(file);
+
+    if (file.type.startsWith("image/")) {
+      const img = document.createElement("img");
+      img.src = fileURL;
+      preview.appendChild(img);
+    } else if (file.type === "application/pdf") {
+      const embed = document.createElement("embed");
+      embed.src = fileURL;
+      embed.type = "application/pdf";
+      embed.width = "100%";
+      embed.height = "300px";
+      preview.appendChild(embed);
+    } else {
+      preview.innerHTML = "📎 Preview not available for this file type.";
+    }
+  });
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const file = fileInput.files[0];
+    const submitBtn = form.querySelector("button");
+    const message = document.getElementById("uploadMessage");
+
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      message.textContent = "⚠️ File size must be under 5MB.";
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Uploading...";
+
+    const formData = new FormData();
+    formData.append("paymentProof", file);
+    formData.append("orderId", sessionStorage.getItem("orderId") || "N/A");
+
+    try {
+      const res = await fetch("upload-proof.php", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await res.json();
+
+      if (result.status === "success") {
+        message.textContent = "✅ Proof uploaded successfully!";
+        setTimeout(() => {
+          sessionStorage.clear();
+          window.location.href = "thankyou.html";
+        }, 2000);
+      } else {
+        message.textContent = "❌ Upload failed: " + result.message;
+      }
+    } catch (err) {
+      console.error(err);
+      message.textContent = "⚠️ An error occurred during upload.";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Upload Proof";
+    }
+  });
+</script>
+
+</body>
+</html>

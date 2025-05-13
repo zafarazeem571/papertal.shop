@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Place Your Order - Paper Tales</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Orderstyles.css">
+</head>
+<body>
+  <div class="announcement-wrapper">
+    <div class="announcement-bar">
+      Unlock Joy with Orders of Minimum Rs 300 and Above! Free Shipping Above Rs 3000/-
+    </div>
+  </div>
+
+  <header>
+    <h1><a href="index.html" class="logo-link">PaperTales</a></h1>
+    <div class="cart-icon">
+      🛒 <span id="cart-count">0</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Complete Your Order</h2>
+    <form id="orderForm">
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="text" name="phone" placeholder="Phone" required />
+      <input type="text" name="address" placeholder="Address" required />
+      
+      <select name="payment" id="paymentMethod" required>
+        <option value="">Select Payment Method</option>
+        <option value="COD">Cash on Delivery</option>
+        <option value="JazzCash">JazzCash</option>
+        <option value="Easypaisa">Easypaisa</option>
+      </select>
+
+      <label for="paymentNumber" id="paymentNumberLabel" style="display: none;">Your JazzCash/Easypaisa Number</label>
+      <input
+        type="text"
+        name="paymentNumber"
+        id="paymentNumber"
+        placeholder="Enter number"
+        style="display: none;"
+        pattern="\d{10,12}"
+        title="Enter a valid number (10–12 digits)"
+      />
+
+      <button type="submit">Place Order</button>
+    </form>
+    <p id="orderMessage"></p>
+  </section>
+
+  <div id="cartSummary">
+    <h3>Your Cart</h3>
+    <ul id="cartItems"></ul>
+    <p id="cartTotal"><strong>Total:</strong> ₹0</p>
+  </div>
+
+  <div class="contact-container">
+    <a href="contact.html" class="contact-circle" aria-label="Contact Us">
+      💬
+      <span class="tooltip-text">Contact Us</span>
+    </a>
+  </div>
+
+  <footer>
+    Copyright &copy; 2025 PaperTales. All rights reserved. Powered by Workwithazeem.
+  </footer>
+
+  <script>
+    const productCatalog = {
+      "Card For You": 250,
+      "Congratulations Card": 250,
+      "God Bless Card": 250,
+      "Happy Birthday Card": 250,
+      "Mother's Day Card": 250,
+      "Thank You Card": 250
+    };
+
+    function renderCart() {
+  const rawCart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cartItemsContainer = document.getElementById("cartItems");
+  const cartTotal = document.getElementById("cartTotal");
+  const cartCount = document.getElementById("cart-count");
+
+  const consolidated = {};
+  rawCart.forEach(item => {
+    const key = item.title;
+    if (!consolidated[key]) {
+      consolidated[key] = { ...item };
+    } else {
+      consolidated[key].quantity += item.quantity || 1;
+    }
+  });
+
+  const cart = Object.values(consolidated);
+  cartItemsContainer.innerHTML = "";
+
+  let total = 0;
+  let totalQty = 0;
+
+  if (cart.length === 0) {
+    cartItemsContainer.innerHTML = "<li>Your cart is empty.</li>";
+    cartTotal.innerHTML = "<strong>Total:</strong> ₨0";
+    cartCount.textContent = 0;
+    return;
+  }
+
+  cart.forEach((item) => {
+    const title = item.title;
+    const quantity = item.quantity || 1;
+    const price = productCatalog[title] || 0;
+    const subtotal = price * quantity;
+    total += subtotal;
+    totalQty += quantity;
+
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <div>
+        <strong>${title}</strong> - ₨${price} each<br>
+        Qty:
+        <button class="qty-btn" data-title="${title}" data-action="decrease">−</button>
+        ${quantity}
+        <button class="qty-btn" data-title="${title}" data-action="increase">+</button>
+        = ₨${subtotal}
+        <button class="remove-btn" data-title="${title}">Remove</button>
+      </div>
+    `;
+    cartItemsContainer.appendChild(li);
+  });
+
+  cartTotal.innerHTML = `<strong>Total:</strong> ₨${total}`;
+  cartCount.textContent = totalQty;
+
+  document.querySelectorAll(".qty-btn").forEach(button => {
+    button.addEventListener("click", function () {
+      const title = this.getAttribute("data-title");
+      const action = this.getAttribute("data-action");
+      let updatedCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      let found = false;
+      updatedCart = updatedCart.map(item => {
+        if (item.title === title && !found) {
+          found = true;
+          if (action === "increase") {
+            item.quantity += 1;
+          } else if (action === "decrease") {
+            item.quantity -= 1;
+          }
+        }
+        return item;
+      }).filter(item => item.quantity > 0); // Remove if quantity becomes 0
+
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      renderCart();
+    });
+  });
+
+  document.querySelectorAll(".remove-btn").forEach(button => {
+    button.addEventListener("click", function () {
+      const titleToRemove = this.getAttribute("data-title");
+      const newCart = rawCart.filter(item => item.title !== titleToRemove);
+      localStorage.setItem("cart", JSON.stringify(newCart));
+      renderCart();
+    });
+  });
+}
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderCart();
+
+      document.getElementById("paymentMethod").addEventListener("change", function () {
+        const selected = this.value;
+        const numberInput = document.getElementById("paymentNumber");
+        const numberLabel = document.getElementById("paymentNumberLabel");
+
+        if (selected === "JazzCash" || selected === "Easypaisa") {
+          numberInput.style.display = "block";
+          numberInput.required = true;
+          numberLabel.style.display = "block";
+        } else {
+          numberInput.style.display = "none";
+          numberInput.required = false;
+          numberLabel.style.display = "none";
+        }
+      });
+
+      document.getElementById("orderForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const submitBtn = this.querySelector("button[type='submit']");
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Placing Order...";
+
+        const name = this.name.value.trim();
+        const email = this.email.value.trim();
+        const phone = this.phone.value.trim();
+        const address = this.address.value.trim();
+        const payment = this.payment.value;
+        const paymentNumber = document.getElementById("paymentNumber").value.trim();
+
+        if (!name || !address || !payment) {
+          alert("Please complete all required fields.");
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Place Order";
+          return;
+        }
+
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        if (cart.length === 0) {
+          alert("Your cart is empty.");
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Place Order";
+          return;
+        }
+
+        const enrichedCart = cart.map(item => ({
+          ...item,
+          price: productCatalog[item.title] || item.price || 0
+        }));
+
+        const total = enrichedCart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+        const orderData = {
+          name,
+          email,
+          phone,
+          address,
+          payment,
+          paymentNumber,
+          items: enrichedCart,
+          total
+        };
+
+        try {
+          const response = await fetch("order.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(orderData)
+          });
+
+          const result = await response.json();
+
+          if (result.status === "success") {
+            document.getElementById("orderMessage").textContent = "Order placed successfully! Thank you.";
+            document.getElementById("orderMessage").scrollIntoView({ behavior: "smooth" });
+            this.reset();
+            localStorage.removeItem("cart");
+            document.getElementById("cart-count").textContent = 0;
+            renderCart();
+
+            const redirectTo = payment === "COD" ? "thankyou.html" : "payment-confirmation.html";
+            setTimeout(() => window.location.href = redirectTo, 2000);
+          } else {
+            alert("Error placing order: " + result.message);
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Place Order";
+          }
+        } catch (error) {
+          alert("Network error. Please try again later.");
+          console.error(error);
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Place Order";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

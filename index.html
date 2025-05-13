@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta name="description" content="Paper Tales offers custom handmade greeting cards and stationery for every occasion.">
+  <meta name="keywords" content="handmade greeting cards, custom stationery, PaperTales, personalized cards">
+  <meta name="author" content="PaperTales">
+  <meta property="og:title" content="PaperTales - Handmade Greeting Cards" />
+  <meta property="og:description" content="Custom handmade greeting cards and stationery with love." />
+  <meta property="og:image" content="https://papertale.shop/images/sample-card.jpg" />
+  <meta property="og:url" content="https://papertale.shop" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>PaperTales - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Homestyles.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="canonical" href="https://papertale.shop/" />
+
+  <style>
+    #cartNotification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #3c763d;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 9999;
+}
+
+    
+
+    #cartNotification.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="announcement-wrapper">
+    <div class="announcement-bar">
+      Unlock Joy with Orders of Minimum Rs 300 and Above! Free Shipping Above Rs 3000/-
+    </div>
+  </div>
+
+  <header>
+    <h1><a href="index.html" class="logo-link" aria-label="PaperTales Home">PaperTales</a></h1>
+    <p>Crafting Memories with Handmade Cards</p>
+    <a href="order.html" class="cart-icon" aria-label="Go to Order Page">
+      🛒 <span id="cart-count">0</span>
+    </a>
+  </header>
+
+  <div class="running-box">
+    <div class="running-text">
+      Welcome to PaperTales – Where Every Card Tells a Story
+    </div>
+  </div>
+
+  <main role="main">
+    <section>
+      <div class="intro">
+        <h2>Welcome to <span class="brand-highlight">PaperTales</span></h2>
+        <p class="tagline">Where paper sparks imagination</p>
+        <p class="description">
+          At <span class="brand-highlight">PaperTales</span>, we craft more than just cards — we craft emotions.
+          Whether it’s birthdays, weddings, farewells, or just because, our handmade cards and custom stationery are designed with love and personal touches that make every message unforgettable.
+          <br><br>
+          You can even personalize your designs to make them truly yours!
+        </p>
+      </div>
+
+      <div class="insta-box">
+        Instagram: <a href="https://www.instagram.com/papertales.shop" target="_blank">@papertales.shop</a>
+      </div>
+
+      <div class="currency-note">All prices are in Pakistani Rupees (PKR).</div>
+
+      <div class="product-images" id="products">
+        <div class="product">
+          <img src="Card-For-You-Papertales.jpg" alt="Handmade 'Card For You' greeting card" loading="lazy" />
+          <div class="product-details">
+            <p>Price: ₨250</p>
+            <button 
+  onclick="addToCart({ title: 'Card For You', price: 250 })" 
+  aria-label="Add 'Card For You' to cart"
+>
+  Add to Cart
+</button>
+          </div>
+        </div>
+        <div class="product">
+          <img src="Congratulations-Card-Papertales.jpg" alt="Congratulations Card" loading="lazy" />
+          <div class="product-details">
+            <p>Price: ₨250</p>
+            <button 
+  onclick="addToCart({ title: 'Congratulations Card', price: 250 })" 
+  aria-label="Add 'Congratulations Card' to cart"
+>
+  Add to Cart
+</button>
+
+          </div>
+        </div>
+        <div class="product">
+          <img src="God-Bless-Card-Papertales.jpg" alt="God Bless Card" loading="lazy" />
+          <div class="product-details">
+            <p>Price: ₨250</p>
+            <button 
+  onclick="addToCart({ title: 'God Bless Card', price: 250 })" 
+  aria-label="Add 'God Bless Card' to cart"
+>
+  Add to Cart
+</button>
+
+          </div>
+        </div>
+        <div class="product">
+          <img src="Happy-Birthday-Card-Papertales.jpg" alt="Happy Birthday Card" loading="lazy" />
+          <div class="product-details">
+            <p>Price: ₨250</p>
+            <button 
+  onclick="addToCart({ title: 'Happy Birthday Card', price: 250 })" 
+  aria-label="Add 'Happy Birthday Card' to cart"
+>
+  Add to Cart
+</button>
+
+          </div>
+        </div>
+        <div class="product">
+          <img src="Mother's-Day-Card-Papertales.jpg" alt="Mother's Day Card" loading="lazy" />
+          <div class="product-details">
+            <p>Price: ₨250</p>
+            <button 
+  onclick="addToCart({ title: 'Mother\'s Day Card', price: 250 })" 
+  aria-label="Add 'Mother's Day Card' to cart"
+>
+  Add to Cart
+</button>
+
+          </div>
+        </div>
+        <div class="product">
+          <img src="Thank-You-Card-Papertales.jpg" alt="Thank You Card" loading="lazy" />
+          <div class="product-details">
+            <p>Price: ₨250</p>
+            <button 
+  onclick="addToCart({ title: 'Thank You Card', price: 250 })" 
+  aria-label="Add 'Thank You Card' to cart"
+>
+  Add to Cart
+</button>
+
+          </div>
+        </div>
+
+
+
+      </div>
+    </section>
+  </main>
+
+  <div class="contact-container">
+    <a href="contact.html" class="contact-circle" aria-label="Contact Us">
+      💬
+      <span class="tooltip-text">Contact Us</span>
+    </a>
+  </div>
+
+  <footer>
+    Copyright &copy; 2025 PaperTales. All rights reserved. Powered by Workwithazeem.
+  </footer>
+
+  <div id="cartNotification">Item added to cart!</div>
+
+  <script>
+    function addToCart(product) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existingItem = cart.find(item => item.title === product.title);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      showCartNotification(`${product.title} added to cart!`);
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById("cart-count").textContent = totalItems;
+    }
+
+    function showCartNotification(message = "Item added to cart!") {
+      const notif = document.getElementById("cartNotification");
+      notif.textContent = message;
+      notif.classList.add("show");
+
+      setTimeout(() => {
+        notif.classList.remove("show");
+      }, 3000);
+    }
+
+    document.addEventListener("DOMContentLoaded", updateCartCount);
+  </script>
+</body>
+</html>

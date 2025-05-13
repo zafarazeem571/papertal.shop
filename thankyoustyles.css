@@ -1,0 +1,70 @@
+/* thankyou.css – styled to match Homestyles.css */
+
+body {
+  margin: 0;
+  padding: 60px 20px;
+  font-family: 'Quicksand', sans-serif;
+  background: linear-gradient(to bottom, #fff9f5, #ffe0cc);
+  color: #333;
+  text-align: center;
+  line-height: 1.6;
+}
+
+h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 3rem;
+  color: #c94f4f;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 20px auto 30px;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #c94f4f;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #a83838;
+}
+
+footer {
+  background-color: #ffe0cc;
+  margin-top: 80px;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #444;
+  border-top: 1px solid #ffd1b3;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  .btn {
+    padding: 10px 24px;
+    font-size: 0.95rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  footer {
+    font-size: 0.8rem;
+  }
+}

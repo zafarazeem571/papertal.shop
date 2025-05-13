@@ -1,0 +1,102 @@
+<style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #fffaf4;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2rem;
+      color: #e29578;
+    }
+
+    .logo-link {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #6d6875;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input[type="file"] {
+      padding: 10px;
+      border: 2px dashed #e29578;
+      border-radius: 10px;
+      background-color: #fff0e6;
+    }
+
+    button {
+      background-color: #e29578;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #d77d64;
+    }
+
+    #uploadMessage {
+      text-align: center;
+      color: #4caf50;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    #preview {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    #preview img,
+    #preview embed {
+      max-width: 100%;
+      max-height: 300px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 15px;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+      }
+
+      button {
+        font-size: 0.95rem;
+        padding: 10px;
+      }
+    }
+  </style>
